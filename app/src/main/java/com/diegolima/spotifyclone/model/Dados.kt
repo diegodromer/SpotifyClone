@@ -6,5 +6,5 @@ class Categoria(
 )
 
 class Album {
-    var algum:Int = 0
+    var album:Int = 0
 }
