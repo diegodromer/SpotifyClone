@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diegolima.spotifyclone.R
-import com.diegolima.spotifyclone.model.Album
-import com.diegolima.spotifyclone.model.Categoria
-import kotlinx.android.synthetic.main.album_item.view.*
+import com.diegolima.spotifyclone.model.*
 import kotlinx.android.synthetic.main.categoria_item.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Home : Fragment() {
 
@@ -41,32 +43,32 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val categorias: MutableList<Categoria> = ArrayList()
-        for (c in 0..4) { //'c' de categorias
-
-            val categoria = Categoria()
-            categoria.titulo = "Categoria$c" //modelo de dados criado sendo add o titulo
-
-
-
-            val albuns:MutableList<Album> = ArrayList()
-            for(a in 0..19) { //'a' de albuns
-                val album = Album()
-                //album.album = R.drawable.spotify
-                albuns.add(album) //modelo de dados criado sendo add o album
-            }
-
-            categoria.albuns = albuns
-            categorias.add(categoria)
-
-        }
-
+        val categorias = arrayListOf<Categoria>()
         categoriaAdapter = CategoriaAdapter(categorias)
         recycler_view_categorias.adapter = categoriaAdapter
         recycler_view_categorias.layoutManager = LinearLayoutManager(context)
+
+        retrofit().create(SpotifyAPI::class.java)
+            .ListCategorias()
+            .enqueue(object : Callback<Categorias> {
+                override fun onFailure(call: Call<Categorias>, t: Throwable) {
+                    Toast.makeText(context, "Erro no servidor", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<Categorias>, response: Response<Categorias>) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            categoriaAdapter.categorias.clear()
+                            categoriaAdapter.categorias.addAll(it.categorias)
+                            categoriaAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            })
+
     }
 
-    private inner class CategoriaAdapter(private val categorias: MutableList<Categoria>) :
+    private inner class CategoriaAdapter(internal val categorias: MutableList<Categoria>) : //internal - fun de uso interna apenas
         RecyclerView.Adapter<CategoriaHolder>() { //classe interna
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriaHolder {
@@ -85,7 +87,8 @@ class Home : Fragment() {
         fun bind(categoria: Categoria) {
             itemView.text_titulo.text = categoria.titulo
             itemView.recycler_albuns.adapter = AlbunsAdapter(categoria.albuns)
-            itemView.recycler_albuns.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            itemView.recycler_albuns.layoutManager =
+                LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         }
     }
 
@@ -93,7 +96,8 @@ class Home : Fragment() {
      * construindo os albuns
      */
 
-    private inner class AlbunsAdapter(private val albuns:MutableList<Album>):RecyclerView.Adapter<AlbunsHolders>() {
+    private inner class AlbunsAdapter(private val albuns: List<Album>) :
+        RecyclerView.Adapter<AlbunsHolders>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbunsHolders {
             return AlbunsHolders(layoutInflater.inflate(R.layout.album_item, parent, false))
@@ -107,9 +111,9 @@ class Home : Fragment() {
         }
     }
 
-    private inner class AlbunsHolders(itemView:View): RecyclerView.ViewHolder(itemView){
-        fun bind(album: Album){
-            //itemView.image_album.setImageResource(album.album)
+    private inner class AlbunsHolders(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(album: Album) {
+
         }
     }
 

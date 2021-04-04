@@ -1,10 +1,20 @@
 package com.diegolima.spotifyclone.model
 
-class Categoria(
+import com.google.gson.annotations.SerializedName
+
+data class Categoria(
+    @SerializedName("titulo")
     var titulo: String = "",
-    var albuns:MutableList<Album> = ArrayList()
+
+    @SerializedName("albuns")
+    var albuns: List<Album> = arrayListOf()
 )
 
-class Album {
-    var album:Int = 0
-}
+data class Album(
+    @SerializedName("url_imagem") var album: String = ""
+)
+
+data class Categorias(
+    @SerializedName("categoria")
+    val categorias: List<Categoria>
+)
