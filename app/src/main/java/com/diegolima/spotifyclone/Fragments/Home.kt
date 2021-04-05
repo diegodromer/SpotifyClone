@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.diegolima.spotifyclone.R
 import com.diegolima.spotifyclone.model.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.album_item.view.*
 import kotlinx.android.synthetic.main.categoria_item.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
@@ -113,7 +115,7 @@ class Home : Fragment() {
 
     private inner class AlbunsHolders(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(album: Album) {
-
+            Picasso.get().load(album.album).placeholder(R.drawable.placeholder).fit().into(itemView.image_album) // fit() -> para as imagens se alinhar corretamente no quadrado, pra nao ficar uma imagem nem maior, nem menor que a outra
         }
     }
 

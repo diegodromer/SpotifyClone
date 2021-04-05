@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 interface SpotifyAPI {
-    @GET("pd.json.json?alt=media&token=11c94754-77a4-4f7f-9e2e-516ac4a12636")
+    @GET("nelson.pd.json.json?alt=media&token=95d79652-a874-4711-8f39-5d86b7372aa5")
     fun ListCategorias():Call<Categorias>
 }
 
