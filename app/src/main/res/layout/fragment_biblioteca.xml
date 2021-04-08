@@ -4,58 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".Fragments.Biblioteca">
 
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/viewpagertab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/black"
+        app:stl_clickable="true"
+        app:stl_defaultTabTextAllCaps="false"
+        app:stl_defaultTabTextColor="@android:color/white"
+        app:stl_defaultTabTextHorizontalPadding="16dp"
+        app:stl_defaultTabTextMinWidth="0dp"
+        app:stl_defaultTabTextSize="14sp"
+        app:stl_distributeEvenly="false"
+        app:stl_dividerColor="#4D000000"
+        app:stl_dividerThickness="4dp"
+        app:stl_drawDecorationAfterTab="false"
+        app:stl_indicatorAlwaysInCenter="false"
+        app:stl_indicatorColor="@color/Verde"
+        app:stl_indicatorCornerRadius="2dp"
+        app:stl_indicatorGravity="bottom"
+        app:stl_indicatorInFront="false"
+        app:stl_indicatorInterpolation="smart"
+        app:stl_indicatorThickness="4dp"
+        app:stl_indicatorWidth="auto"
+        app:stl_indicatorWithoutPadding="false"
+        app:stl_overlineColor="#4D000000"
+        app:stl_overlineThickness="0dp"
+        app:stl_titleOffset="24dp"
+        app:stl_underlineColor="#4D000000"
+        app:stl_underlineThickness="1dp"
+        tools:ignore="MissingConstraints" />
 
-    <CalendarView
-        android:focusable="true"
-
-        android:id="@+id/calendarViewFormatura"
-        android:layout_width="416dp"
-        android:layout_height="376dp"
-        android:soundEffectsEnabled="true"
-        android:layout_marginEnd="61dp"
-        android:clickable="true"
- android:focusableInTouchMode="true"
-        android:contextClickable="true"
-
-        android:elevation="5dp"
-        android:foregroundGravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-10dp" />
-
-    <ProgressBar
-
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:backgroundTint="#FFFFFF"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarViewFormatura"
-        app:layout_constraintStart_toStartOf="parent"
-
-        tools:layout_editor_absoluteY="564dp"/>
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="172dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24dp"
-        android:text="Carregando formatura..."
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/viewpagertab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

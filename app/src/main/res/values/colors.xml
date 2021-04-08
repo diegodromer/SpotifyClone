@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="cinzaEscuro">#282828</color>
+    <color name="Verde">#2EA533</color>
+    <color name="VerdeClaro">#21CC28</color>
+    <color name="CinzaClaro">#cdcdcd</color>
+
+
 </resources>
